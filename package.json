@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "babel-preset-stage-1": "^6.1.18",
-    "react": "^15.5.4",
-    "react-addons-css-transition-group": "^15.4.2",
+    "react": "15.4.0",
+    "react-d3": "^0.4.0",
     "react-dom": "^15.5.4"
   }
 }
