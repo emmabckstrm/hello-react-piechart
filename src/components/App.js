@@ -4,47 +4,82 @@ const PieChart = require('react-d3/piechart').PieChart;
 export default class App extends Component {
     constructor(props) {
       super(props);
+      this.originalPieData = [
+        {label: 'Margarita', value: 20.0, originalValue: 30.0},
+        {label: 'John', value: 55.0, originalValue: 81.0},
+        {label: 'Tim', value: 25.0, originalValue: 45.0 }
+      ];
+
       this.state = {
-        pieData: [
-          {label: 'Margarita', value: 20.0},
-          {label: 'John', value: 55.0},
-          {label: 'Tim', value: 25.0 }
-        ],
         newEntryTitle: '',
-        newEntryNumber: null,
+        newEntryNumber: '',
+        pieData: [
+          {label: 'Mary', value: 20.0},
+          {label: 'Jonas', value: 55.0},
+          {label: 'Timothy', value: 25.0 }
+        ],
+        pieDataTotal: 0,
       };
+
+    }
+    componentDidMount = () => {
+      this.calculateTotal(this.originalPieData, () => { this.updatePieData(this.originalPieData)});
+      //this.updatePieData(this.originalPieData);
+    }
+
+    calculateTotal = (data, callback) => {
+      let total = 0;
+      for (let i=0; i<data.length; i++) {
+        total += data[i].originalValue;
+      }
+      this.setState({
+        pieDataTotal: total
+      }, () => {callback()});
+    }
+
+    updatePieData = (originalData) => {
+      let newData = originalData.slice();
+      let value = null;
+      for (let j=0; j<originalData.length; j++) {
+
+        value = (originalData[j].originalValue / this.state.pieDataTotal)*100;
+        newData[j].value = value.toFixed(1);
+      }
+      this.setState({
+        pieData: newData
+      })
     }
 
     handleNewEntry = (event) => {
-      // takes original data
-      // calculates total amount
-      // calculates percentage per data point
       event.preventDefault();
       const newEntry = {
-        label: this.state.newEntryTitle,
-        value: this.state.newEntryNumber
+        label: this.state.newEntryTitle.slice(),
+        value: this.state.newEntryNumber.slice(),
+        originalValue: Number(this.state.newEntryNumber.slice()),
       }
+      let newData;
+      this.setState({
+        newEntryNumber: '',
+        newEntryTitle: '',
+      })
       this.setState((prevState) => {
-        pieData: prevState.pieData.push(newEntry);
+        newData = prevState.pieData.slice();
+        newData.push(newEntry);
+        return { pieDataTotal: prevState.pieDataTotal + newEntry.originalValue }
+      }, () => {
+        this.updatePieData(newData);
       });
     }
 
     onInputChange = (event) => {
       const target = event.target;
-      const value = target.value;
       const inputName = target.name;
       this.setState({
-        [inputName]: value
+        [inputName]: target.value
       })
     }
 
     render () {
-        const pieData2 =  [
-          {label: 'Margarita', value: 20.0},
-          {label: 'John', value: 55.0},
-          {label: 'Tim', value: 25.0 },
-          {label: 'Erin', value: 3.0}
-        ];
         return (
           <div>
             <h1>Hello PieChart!</h1>
