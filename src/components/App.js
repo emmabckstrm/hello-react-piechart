@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import NewEntryForm from './NewEntryForm'
 const PieChart = require('react-d3/piechart').PieChart;
 const d3 = require('d3');
 
@@ -38,7 +39,6 @@ export default class App extends Component {
       let newData = originalData.slice();
       let value = null;
       for (let j=0; j<originalData.length; j++) {
-
         value = (originalData[j].originalValue / this.state.pieDataTotal)*100;
         newData[j].value = value.toFixed(1);
       }
@@ -49,23 +49,24 @@ export default class App extends Component {
 
     handleNewEntry = (event) => {
       event.preventDefault();
-      const newEntry = {
-        label: this.state.newEntryTitle.slice(),
-        value: this.state.newEntryNumber.slice(),
-        originalValue: Number(this.state.newEntryNumber.slice()),
+      if (this.state.newEntryNumber > 0) {
+        const newEntry = {
+          label: this.state.newEntryTitle.slice(),
+          value: this.state.newEntryNumber.slice(),
+          originalValue: Number(this.state.newEntryNumber.slice()),
+        }
+        let newData;
+        this.setState((prevState) => {
+          newData = prevState.pieData.slice();
+          newData.push(newEntry);
+          return { pieDataTotal: prevState.pieDataTotal + newEntry.originalValue,
+            newEntryNumber: '',
+            newEntryTitle: '',
+          }
+        }, () => {
+          this.updatePieData(newData);
+        });
       }
-      let newData;
-      this.setState({
-        newEntryNumber: '',
-        newEntryTitle: '',
-      })
-      this.setState((prevState) => {
-        newData = prevState.pieData.slice();
-        newData.push(newEntry);
-        return { pieDataTotal: prevState.pieDataTotal + newEntry.originalValue }
-      }, () => {
-        this.updatePieData(newData);
-      });
     }
 
     onInputChange = (event) => {
@@ -96,15 +97,12 @@ export default class App extends Component {
                 colors={color}
               />
               <div>
-                <form className="new-entry-form" onSubmit={this.handleNewEntry}>
-                  <div>
-                    <input type="text" name="newEntryTitle" className="new-entry-title" placeholder="New entry" value={this.state.newEntryTitle} onChange={this.onInputChange}/>
-                    <input type="number" name="newEntryNumber" className="new-entry-number" placeholder="0" value={this.state.newEntryNumber} onChange={this.onInputChange}/>
-                  </div>
-                  <div>
-                    <input type="submit"/>
-                  </div>
-                </form>
+                <NewEntryForm
+                  handleNewEntry={this.handleNewEntry}
+                  newEntryTitle={this.state.newEntryTitle}
+                  newEntryNumber={this.state.newEntryNumber}
+                  onInputChange={this.onInputChange}
+                />
               </div>
             </div>
         </div>
