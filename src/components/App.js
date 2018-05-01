@@ -32,7 +32,11 @@ export default class App extends Component {
       }
       this.setState({
         pieDataTotal: total
-      }, () => {callback()});
+      }, () => {
+        if(callback){
+           callback();
+        }
+      });
     }
 
     updatePieData = (originalData) => {
@@ -91,11 +95,12 @@ export default class App extends Component {
                 data={this.state.pieData}
                 width={400}
                 height={400}
-                radius={100}
-                innerRadius={20}
+                radius={120}
+                innerRadius={25}
                 title="This is my Pie Chart"
                 colors={color}
               />
+              <p className="text-center">Your team has in total <b>{this.state.pieDataTotal}</b> of arbitrary units</p>
               <div>
                 <NewEntryForm
                   handleNewEntry={this.handleNewEntry}

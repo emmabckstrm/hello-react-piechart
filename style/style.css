@@ -9,6 +9,9 @@ body {
   margin: 0;
   padding: 0;
 }
+.text-center {
+  text-align: center;
+}
 
 /*
 *   HEADER ===============================
@@ -37,6 +40,8 @@ header h1 {
   padding: 50px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 50px;
+  border-radius: 4px;
 }
 .rd3-chart {
   display: block;
