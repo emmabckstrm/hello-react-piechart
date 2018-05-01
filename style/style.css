@@ -1,0 +1,79 @@
+
+/*
+*   GENERAL =========================
+*/
+
+body {
+  background: #eee;
+  font: normal 12px sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+*   HEADER ===============================
+*/
+header {
+  background: #c3e8d7;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+header h1 {
+
+}
+
+/*
+*   CHART ===============================
+*/
+.chart-container {
+  background: #fff;
+  width: 50%;
+  padding: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.rd3-chart {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+*   NEW ENTRY FORM ===============================
+*/
+.new-entry-form {
+  width: 100%;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.new-entry-form div {
+  width: 100%;
+}
+.new-entry-form input {
+  border: 1px solid #ddd;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  border-color: #c3e8d7;
+  outline-color: #95CFB5;
+}
+.new-entry-form .new-entry-title {
+  width: 85%;
+  border-top-left-radius: 4px;
+}
+.new-entry-form .new-entry-number {
+  width: 15%;
+  border-top-right-radius: 4px;
+}
+.new-entry-form input[type='submit']{
+  width: 100%;
+  background: #c3e8d7;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}

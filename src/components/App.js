@@ -14,11 +14,7 @@ export default class App extends Component {
       this.state = {
         newEntryTitle: '',
         newEntryNumber: '',
-        pieData: [
-          {label: 'Mary', value: 20.0},
-          {label: 'Jonas', value: 55.0},
-          {label: 'Timothy', value: 25.0 }
-        ],
+        pieData: [],
         pieDataTotal: 0,
       };
 
@@ -86,22 +82,30 @@ export default class App extends Component {
         .range(["#FFBB98", "#89A8D8", "#FFD998"]);
         return (
           <div>
-            <h1>Hello PieChart!</h1>
-            <PieChart
-              data={this.state.pieData}
-              width={400}
-              height={400}
-              radius={100}
-              innerRadius={20}
-              title="This is my Pie Chart"
-              colors={color}
-            />
-            <div>
-              <form onSubmit={this.handleNewEntry}>
-                <input type="text" name="newEntryTitle" placeholder="New entry" value={this.state.newEntryTitle} onChange={this.onInputChange}/>
-                <input type="number" name="newEntryNumber" value={this.state.newEntryNumber} onChange={this.onInputChange}/>
-                <input type="submit"/>
-              </form>
+            <header>
+              <h1>Hello PieChart!</h1>
+            </header>
+            <div className="chart-container">
+              <PieChart
+                data={this.state.pieData}
+                width={400}
+                height={400}
+                radius={100}
+                innerRadius={20}
+                title="This is my Pie Chart"
+                colors={color}
+              />
+              <div>
+                <form className="new-entry-form" onSubmit={this.handleNewEntry}>
+                  <div>
+                    <input type="text" name="newEntryTitle" className="new-entry-title" placeholder="New entry" value={this.state.newEntryTitle} onChange={this.onInputChange}/>
+                    <input type="number" name="newEntryNumber" className="new-entry-number" placeholder="0" value={this.state.newEntryNumber} onChange={this.onInputChange}/>
+                  </div>
+                  <div>
+                    <input type="submit"/>
+                  </div>
+                </form>
+              </div>
             </div>
         </div>
 
