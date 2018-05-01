@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 const PieChart = require('react-d3/piechart').PieChart;
+const d3 = require('d3');
 
 export default class App extends Component {
     constructor(props) {
@@ -80,6 +81,9 @@ export default class App extends Component {
     }
 
     render () {
+      var color = d3.scale.linear()
+        .domain([0,5,10])
+        .range(["#FFBB98", "#89A8D8", "#FFD998"]);
         return (
           <div>
             <h1>Hello PieChart!</h1>
@@ -90,6 +94,7 @@ export default class App extends Component {
               radius={100}
               innerRadius={20}
               title="This is my Pie Chart"
+              colors={color}
             />
             <div>
               <form onSubmit={this.handleNewEntry}>
